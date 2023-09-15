@@ -1,10 +1,4 @@
-def validate_pin(pin):
-    import re
-    pattern = r'[-!@#$%^&*()_+{}\[\]:;<>,.?~\\/]'
-
-    if re.search(pattern, pin):
-            return False
-        
+def validate_pin(pin):        
     for char in pin:
         if not char.isdigit():
             return False
