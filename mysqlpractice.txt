@@ -1,0 +1,226 @@
+C:\Users\Aj>mysql -u root -p
+Enter password: ********************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 48
+Server version: 8.1.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| tutorials          |
++--------------------+
+5 rows in set (0.04 sec)
+
+mysql> use tutorials;
+Database changed
+mysql> INSERT INTO tutorials_tbl
+    -> (tutorial_title, tutorial_author, submission_date)
+    -> VALUES
+    -> ("Learn PHP", "John Poul", NOW());
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> INSERT INTO tutorials_tbl
+    -> tutorial_title, tutorial_author, submission_date)
+    -> VALUES
+    -> ("Learn MySQL", "Abdul S", NOW());
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tutorial_title, tutorial_author, submission_date)
+VALUES
+("Learn MySQL", "Abdul ' at line 2
+mysql> INSERT INTO tutorials_tbl
+    -> (tutorial_title, tutorial_author, submission_date)
+    -> VALUES
+    -> ("Learn MySQL", "Abdul Sing", NOW());
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> INSERT INTO tutorials_tbl
+    -> tutorial_title, tutorial_author, submission_date)
+    -> VALUES
+    -> ("JAVA Tutorial", "Sanjay", '2007-05-06');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tutorial_title, tutorial_author, submission_date)
+VALUES
+("JAVA Tutorial", "Sanj' at line 2
+mysql> INSERT INTO tutorials_tbl
+    -> (tutorial_title, tutorial_author, submission_date)
+    -> VALUES
+    -> ("JAVA Tutorial", "Sanjay hon", '2007-05-06');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * from tutorials_tbl
+    -> exit
+    -> SELECT * from tutorials_tbl;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'exit
+SELECT * from tutorials_tbl' at line 2
+mysql> SELECT * from tutorials_tbl;
++-------------+----------------+-----------------+-----------------+
+| tutorial_id | tutorial_title | tutorial_author | submission_date |
++-------------+----------------+-----------------+-----------------+
+|           1 | Learn PHP      | John Poul       | 2023-09-19      |
+|           2 | Learn MySQL    | Abdul Sing      | 2023-09-19      |
+|           3 | JAVA Tutorial  | Sanjay hon      | 2007-05-06      |
++-------------+----------------+-----------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * from tutorials_tbl WHERE tutorial_author = 'Sanjay hon';
++-------------+----------------+-----------------+-----------------+
+| tutorial_id | tutorial_title | tutorial_author | submission_date |
++-------------+----------------+-----------------+-----------------+
+|           3 | JAVA Tutorial  | Sanjay hon      | 2007-05-06      |
++-------------+----------------+-----------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE tutorials_tbl
+    -> SET tutorial_title = 'Learning JAVA'
+    -> WHERE tutorial_id = 3;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * from tutorials_tbl;
++-------------+----------------+-----------------+-----------------+
+| tutorial_id | tutorial_title | tutorial_author | submission_date |
++-------------+----------------+-----------------+-----------------+
+|           1 | Learn PHP      | John Poul       | 2023-09-19      |
+|           2 | Learn MySQL    | Abdul Sing      | 2023-09-19      |
+|           3 | Learning JAVA  | Sanjay hon      | 2007-05-06      |
++-------------+----------------+-----------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * from tutorials_tbl
+    -> WHERE tutorial_author LIKE '%Sing';
++-------------+----------------+-----------------+-----------------+
+| tutorial_id | tutorial_title | tutorial_author | submission_date |
++-------------+----------------+-----------------+-----------------+
+|           2 | Learn MySQL    | Abdul Sing      | 2023-09-19      |
++-------------+----------------+-----------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * from tutorials_tbl ORDER BY tutorial_author ASC;
++-------------+----------------+-----------------+-----------------+
+| tutorial_id | tutorial_title | tutorial_author | submission_date |
++-------------+----------------+-----------------+-----------------+
+|           2 | Learn MySQL    | Abdul Sing      | 2023-09-19      |
+|           1 | Learn PHP      | John Poul       | 2023-09-19      |
+|           3 | Learning JAVA  | Sanjay hon      | 2007-05-06      |
++-------------+----------------+-----------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> create table tcount_tbl
+    -> (tutorial_author VARCHAR(40) NOT NULL,tutorial_author VARCHAR(40) NOT NULL,PRIMARY KEY ( tutorial_author ));
+ERROR 1060 (42S21): Duplicate column name 'tutorial_author'
+mysql> create table tcount_tbl
+    -> (tutorial_author VARCHAR(40) NOT NULL,tutorial_count VARCHAR(40) NOT NULL,PRIMARY KEY ( tutorial_author ));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO tcount_tbl
+    -> (tutorial_author, tutorial_count)
+    -> VALUES
+    -> ("mahran", "20");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO tcount_tbl
+    -> (tutorial_author, tutorial_count)
+    -> VALUES
+    -> ("mahnaz", "NULL");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO tcount_tbl
+    -> (tutorial_author, tutorial_count)
+    -> VALUES
+    -> ("jen", "NULL");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO tcount_tbl
+    -> (tutorial_author, tutorial_count)
+    -> VALUES
+    -> ("gill", "20");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO tcount_tbl
+    -> (tutorial_author, tutorial_count)
+    -> VALUES
+    -> ("john poul", "1");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO tcount_tbl
+    -> (tutorial_author, tutorial_count)
+    -> VALUES
+    -> ("Sanjay Hon", "1");
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> SELECT * from tcount_tbl
+    -> fasdff;
++-----------------+----------------+
+| tutorial_author | tutorial_count |
++-----------------+----------------+
+| gill            | 20             |
+| jen             | NULL           |
+| john poul       | 1              |
+| mahnaz          | NULL           |
+| mahran          | 20             |
+| Sanjay Hon      | 1              |
++-----------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> Select *from tcount_tbl;
++-----------------+----------------+
+| tutorial_author | tutorial_count |
++-----------------+----------------+
+| gill            | 20             |
+| jen             | NULL           |
+| john poul       | 1              |
+| mahnaz          | NULL           |
+| mahran          | 20             |
+| Sanjay Hon      | 1              |
++-----------------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> Select * from tutorials_tbl;
++-------------+----------------+-----------------+-----------------+
+| tutorial_id | tutorial_title | tutorial_author | submission_date |
++-------------+----------------+-----------------+-----------------+
+|           1 | Learn PHP      | John Poul       | 2023-09-19      |
+|           2 | Learn MySQL    | Abdul Sing      | 2023-09-19      |
+|           3 | Learning JAVA  | Sanjay hon      | 2007-05-06      |
++-------------+----------------+-----------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT a.tutorial_id, a.tutorial_author, b.tutorial_count
+    -> FROM tutorials_tbl a, tcount_tbl b
+    -> WHERE a.tutorial_author = b.tutorial_author;
++-------------+-----------------+----------------+
+| tutorial_id | tutorial_author | tutorial_count |
++-------------+-----------------+----------------+
+|           1 | John Poul       | 1              |
+|           3 | Sanjay hon      | 1              |
++-------------+-----------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT a.tutorial_id, a.tutorial_author, b.tutorial_count
+    -> ROM tutorials_tbl a LEFT JOIN tcount_tbl b
+    -> ON a.tutorial_author = b.tutorial_author;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tutorials_tbl a LEFT JOIN tcount_tbl b
+ON a.tutorial_author = b.tutorial_author' at line 2
+mysql> SELECT a.tutorial_id, a.tutorial_author, b.tutorial_count
+    -> FROM tutorials_tbl a LEFT JOIN tcount_tbl b
+    -> ON a.tutorial_author = b.tutorial_author;
++-------------+-----------------+----------------+
+| tutorial_id | tutorial_author | tutorial_count |
++-------------+-----------------+----------------+
+|           1 | John Poul       | 1              |
+|           2 | Abdul Sing      | NULL           |
+|           3 | Sanjay hon      | 1              |
++-------------+-----------------+----------------+
+3 rows in set (0.00 sec)
